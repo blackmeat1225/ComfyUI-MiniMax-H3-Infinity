@@ -1,0 +1,221 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_ref2va_pruned_bf16.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_resized_avg_rank_64_bf16.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "3": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "4": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "3",
+        0
+      ],
+      "attention": "comfy kitchen attention"
+    }
+  },
+  "5": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "6": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "7": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "8": {
+    "class_type": "ResolutionSelector",
+    "inputs": {
+      "aspect_ratio": "9:16 (Portrait Widescreen)",
+      "megapixels": 0.5,
+      "multiple": 32
+    }
+  },
+  "9": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "singer.png"
+    }
+  },
+  "10": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "mv_song.wav"
+    }
+  },
+  "11": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "12": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "4",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "13": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20261013
+    }
+  },
+  "14": {
+    "class_type": "MiniMaxH3Infinity",
+    "inputs": {
+      "clip": [
+        "5",
+        0
+      ],
+      "model": [
+        "4",
+        0
+      ],
+      "noise": [
+        "13",
+        0
+      ],
+      "sampler": [
+        "11",
+        0
+      ],
+      "sigmas": [
+        "12",
+        0
+      ],
+      "vae": [
+        "6",
+        0
+      ],
+      "audio_vae": [
+        "7",
+        0
+      ],
+      "prompt": "subject_definitions:\n<Subject 1> is the young woman singer whose face and hair come from <Picture 1>, wearing a red velvet Santa dress with white fur trim, a black belt, a red-and-white Santa hat and sheer black stockings.\n\nsummary: A music video in which a young woman walks through a snowy small-town street on Christmas Eve holding a little wrapped gift, singing softly to herself about the words she never dared to say。 Cinematic, warm lamp light against cool blue snow, shallow depth of field, soft film grain, smooth slow camera movement.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4], [Shot 5], [Shot 6], [Shot 7], [Shot 8], [Shot 9], [Shot 10], [Shot 11], [Shot 12], [Shot 13]): fully_preserved - her face, hair, Santa dress, hat and stockings stay identical\n\ndetailed_description: Live-action, cinematic music video, warm lamp light, cool blue snow, shallow depth of field. [Shot 1] A wide shot slowly pushes in on a quiet snowy street at night hung with strings of warm lights. <Subject 1> stands under a street lamp holding a small wrapped gift in both hands, her lips closed, listening to the music, snow drifting down and her breath visible. She does not sing yet. [Shot 2] At 00:10.000, a medium close-up with soft window-light bokeh behind <Subject 1> as she softly begins to sing, her lips moving in time with the music, looking down at the gift and adjusting its ribbon with a shy, tender expression. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Snow is falling on the street tonight / Window lights are glowing warm and gold</d>. [Shot 3] At 00:20.000, a side tracking shot at walking speed follows <Subject 1> along a row of lit shopfronts, her boots in the fresh snow, singing quietly to herself as the glowing windows pass. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>I wrapped a little gift with trembling hands</d>. [Shot 4] At 00:30.000, a close-up slowly pushes in on the face of <Subject 1> as she sings with growing feeling, snowflakes catching in the lamp light, her eyes glistening. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Words I never dared to say out loud / Hold me close, it's Christmas Eve / Let the quiet say it all</d>. [Shot 5] At 00:40.000, a low-angle shot slowly orbits <Subject 1> as she sings the chorus with her free hand lifted gently, warm lights blooming into soft bokeh behind her. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>If you hear my heart tonight / Stay a little while, stay a little while</d>. [Shot 6] At 00:50.000, a wide shot from behind shows <Subject 1> stopping at the edge of a small snowy plaza with a single warm-lit cafe window ahead, her shoulders rising as she takes a breath and sings tenderly. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Footsteps fading in the silver snow</d>. [Shot 7] At 01:00.000, a medium tracking shot follows <Subject 1> walking on through the snow, singing, with a lantern burning low at the far end of the street. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>One last lantern burning low / Maybe love is just a little light</d>. [Shot 8] At 01:10.000, a close-up on <Subject 1> raising the little gift into the lantern light and smiling softly as she sings. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Carried through the cold</d>. [Shot 9] At 01:17.000, a medium shot from the side as <Subject 1> holds the little gift to her chest under the lantern, snow settling on her hat, singing the last chorus tenderly. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Hold me close, it's Christmas Eve / Let the quiet say it all</d>. [Shot 10] At 01:24.000, a wide shot slowly pulls back from <Subject 1> standing under the lantern in the falling snow as she sings the last lines, the lights glowing around her. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>If you hear my heart tonight / Stay a little while</d>. [Shot 11] At 01:30.000, a slow medium close-up on <Subject 1> under the lantern as the last chorus fades; she takes a quiet breath and softly sings the closing words, then lets the last note linger, her eyes glistening. <Subject 1> visibly performs to <Audio 1>, her lips following the sung words <d>Ooh... merry Christmas...</d>. [Shot 12] At 01:38.000, a wide shot slowly pulls back from <Subject 1> under the lantern in the quiet falling snow as the last piano notes ring; she is not singing, her lips closed, lowering the little gift with a soft, content smile. [Shot 13] At 01:46.000, the camera holds on the lantern-lit snowy street with <Subject 1> standing still in the distance, snow drifting down as the music fades to silence; she is not singing, her lips closed.\n\noverall_soundscape: [Shot 1–13] A hushed snowy night, only the faint hush of falling snow and soft footsteps under the music.\n\nnon_diegetic_music: [Shot 1] A slow, tender Christmas ballad intro with piano and soft strings, no voice yet. [Shot 2–10] A slow, tender Christmas ballad with piano, nylon guitar, soft strings and a gentle female voice, matching the supplied soundtrack. [Shot 11] The gentle female voice sings the last words over a soft piano. [Shot 12–13] The last soft piano notes and strings fade into silence, no voice.\n\n[Negative: no duplicate <Subject 1>, no singing in the first shot]\n",
+      "auto_split_shots": true,
+      "width": [
+        "8",
+        0
+      ],
+      "height": [
+        "8",
+        1
+      ],
+      "ref_image_size": "match",
+      "window_seconds": 7.4,
+      "fps": 24,
+      "overlap_frames": 22,
+      "total_seconds": 0.0,
+      "stop_on_corruption": true,
+      "ref_images.ref_image_0": [
+        "9",
+        0
+      ],
+      "audio": [
+        "10",
+        0
+      ],
+      "free_between_windows": true,
+      "windows_per_run": 0,
+      "resume_from": ""
+    }
+  },
+  "15": {
+    "class_type": "LTXVSeparateAVLatent",
+    "inputs": {
+      "av_latent": [
+        "14",
+        0
+      ]
+    }
+  },
+  "16": {
+    "class_type": "VAEDecodeTiled",
+    "inputs": {
+      "samples": [
+        "15",
+        0
+      ],
+      "vae": [
+        "6",
+        0
+      ],
+      "tile_size": 1024,
+      "overlap": 64,
+      "temporal_size": 64,
+      "temporal_overlap": 8
+    }
+  },
+  "17": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "16",
+        0
+      ],
+      "audio": [
+        "10",
+        0
+      ],
+      "fps": 24.0
+    }
+  },
+  "18": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "17",
+        0
+      ],
+      "filename_prefix": "video/minimax_h3_infinity_mv",
+      "format": "mp4",
+      "codec": "auto"
+    }
+  },
+  "19": {
+    "class_type": "FreeMemoryAfterRun",
+    "inputs": {}
+  }
+}

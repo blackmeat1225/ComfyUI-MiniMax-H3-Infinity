@@ -1,0 +1,9 @@
+[project]
+name = "comfyui-minimax-h3-infinity"
+version = "0.1.0"
+description = "Long-video windowing node for MiniMax H3 in ComfyUI: auto windows, audio-locked, resumable."
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+
+[project.urls]
+Repository = "https://github.com/blackmeat1225/ComfyUI-MiniMax-H3-Infinity"
