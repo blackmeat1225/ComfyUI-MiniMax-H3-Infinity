@@ -10,7 +10,9 @@ so a single prompt can drive a minute-long clip, optionally locked to a master a
 
 ## Demo
 
-The example music video made with this node (113 s, 13 windows, MiniMax H3 + MiniMax Music 3): [YouTube Short](https://youtube.com/shorts/V5FETbVz8fk)
+[![MiniMax H3 Infinity demo](assets/mv_preview.gif)](https://youtube.com/shorts/V5FETbVz8fk)
+
+The example music video made with this node (113 s, 13 windows, MiniMax H3 + MiniMax Music 3). Click the preview to watch the full video on [YouTube](https://youtube.com/shorts/V5FETbVz8fk).
 
 ## Nodes
 
