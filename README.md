@@ -8,6 +8,10 @@ so a single prompt can drive a minute-long clip, optionally locked to a master a
 > It reuses ComfyUI's own `MiniMaxH3ReferenceToVideo` / `MiniMaxH3AddGuide` / `SamplerCustomAdvanced`, so it needs a
 > ComfyUI version with native MiniMax H3 support (`comfy_extras/nodes_minimax_h3.py`).
 
+## Demo
+
+The example music video made with this node (113 s, 13 windows, MiniMax H3 + MiniMax Music 3): [YouTube Short](https://youtube.com/shorts/V5FETbVz8fk)
+
 ## Nodes
 
 | Node | What it does |
@@ -83,6 +87,8 @@ and `TESpeedMiniMaxH3` nodes after the attention backend; they are not needed.
 * Tested with one hardware/software combination only.
 
 ## 繁體中文簡介
+
+範例 MV：[YouTube Shorts](https://youtube.com/shorts/V5FETbVz8fk)
 
 MiniMax H3 的長影片節點：把一段分鏡腳本（官方格式，`[Shot N]` 加 `At mm:ss.mmm`）切成多個視窗，每個視窗用上一個視窗的尾端當錨點，
 串成一段連續的影像＋聲音 latent，可選用一整首歌當主音軌讓人物對嘴。每個視窗完成就存檔，中斷後可用 `resume_from` 接續；
